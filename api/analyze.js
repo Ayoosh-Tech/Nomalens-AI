@@ -45,7 +45,7 @@ Use practical, conservative advice. Do not recommend exact pesticide doses or un
       contents: [{
         role: "user",
         parts: [
-          { text: system },
+          { text: prompt },
           {
             inlineData: {
               mimeType,
