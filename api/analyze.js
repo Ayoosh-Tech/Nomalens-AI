@@ -69,7 +69,7 @@ Use practical, conservative advice. Do not recommend exact pesticide doses or un
 
     return res.status(200).json(result);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "NomaLens could not analyze this image. Please try again." });
+    console.error("NomaLens API error:", error);
+    return res.status(500).json({ error: error?.message || String(error) });
   }
 }
