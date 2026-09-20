@@ -41,7 +41,7 @@ Return ONLY valid JSON with exactly these keys:
 Use practical, conservative advice. Do not recommend exact pesticide doses or unsafe chemical mixing. The requested display language is ${language}. The selected crop is ${crop}.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.6-flash",
       contents: [{
         role: "user",
         parts: [
