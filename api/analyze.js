@@ -40,7 +40,11 @@ Return ONLY valid JSON with exactly these keys:
 
 Use practical, conservative advice. Do not recommend exact pesticide doses or unsafe chemical mixing. The requested display language is ${language}. The selected crop is ${crop}.`;
 
-    const response = await ai.models.generateContent({
+let response;
+
+for (let attempt = 1; attempt <= 3; attempt++) {
+  try{ 
+response = await ai.models.generateContent({
       model: "gemini-3.6-flash",
       contents: [{
         role: "user",
@@ -53,12 +57,24 @@ Use practical, conservative advice. Do not recommend exact pesticide doses or un
             }
           }
         ]
+         
       }],
       config: {
         responseMimeType: "application/json"
       }
     });
 
+    break;
+  } catch (error) {
+    console.error(`Gemini attempt ${attempt} failed:`, error);
+    if (attempt === 3) {
+      throw error; // rethrow after 3 attempts
+    }
+
+    await new Promise(resolve => setTimeout(resolve, attempt * 2000)
+  );
+   }}
+  
     const text = response.text || "";
     let result;
     try {
